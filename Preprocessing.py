@@ -17,16 +17,33 @@ def Pipeline_1(dataset):
     # One-Hot Encoding for categorical features
     categorical_features = dataset.select_dtypes(include=['object']).columns
     dataset = pd.get_dummies(dataset, columns=categorical_features, drop_first=True)
-
-    X_1 = dataset.drop(columns=['whrswk']).values
-    y_1 = dataset['whrswk'].values
-    return X_1, y_1
-
+    
+    if 'whrswk' in dataset.columns:
+        X = dataset.drop(columns=['whrswk']).values
+        y = dataset['whrswk'].values
+    else:
+        X = dataset.values
+        y = None
+    return X, y
 
 def Pipeline_2(dataset):
-    X_2 = dataset.drop(columns=['whrswk']).values
-    y_2 = dataset['whrswk'].values
+    #Drop missing values
+    dataset.dropna(inplace=True)
 
-    #note: maybe use a scaler here
-    return X_2, y_2
+    # One-Hot Encoding for categorical features
+    categorical_features = dataset.select_dtypes(include=['object']).columns
+    dataset = pd.get_dummies(dataset, columns=categorical_features, drop_first=True)
+    
+    if 'whrswk' in dataset.columns:
+        X = dataset.drop(columns=['whrswk']).values
+        y = dataset['whrswk'].values
+    else:
+        X = dataset.values
+        y = None
+
+    # Feature Scaling
+    scaler = StandardScaler()
+    X = scaler.fit_transform(X)
+
+    return X, y, scaler
 
