@@ -28,12 +28,10 @@ def train_and_evaluate_RF_tuned(X, y):
 
     # Define the parameter grid
     param_grid = {
-        'n_estimators': [100, 200, 300],
-        'max_features': ['auto', 'sqrt', 'log2'],
+        'n_estimators': [50, 100, 200],
         'max_depth': [None, 10, 20, 30],
         'min_samples_split': [2, 5, 10],
-        'min_samples_leaf': [1, 2, 4],
-        'bootstrap': [True, False]
+        'min_samples_leaf': [1, 2, 4]
     }
 
     # Initialize GridSearchCV
@@ -51,4 +49,5 @@ def train_and_evaluate_RF_tuned(X, y):
     scores = cross_val_score(best_rf_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 
+    print(f'Best hyperparameters for random forest: {grid_search.best_params_}')
     return best_rf_regressor, mae

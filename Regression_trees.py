@@ -30,10 +30,9 @@ def train_and_evaluate_RT_tuned(X, y):
 
     # Define the parameter grid
     param_grid = {
-        'max_depth': [None, 10, 20, 30, 40, 50],
-        'min_samples_split': [2, 5, 10],
-        'min_samples_leaf': [1, 2, 4],
-        'max_features': [None, 'auto', 'sqrt', 'log2']
+        'max_depth': [None, 5, 10, 20, 30],
+        'min_samples_split': [2, 5, 10, 20],
+        'min_samples_leaf': [1, 2, 4, 10]
     }
 
     # Initialize GridSearchCV

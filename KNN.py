@@ -31,7 +31,7 @@ def train_and_evaluate_KNN_default(X, y):
 def train_and_evaluate_KNN_tuned(X, y):
     # Define the parameter grid
     param_grid = {
-        'n_neighbors': [3, 5, 7, 9, 11],
+        'n_neighbors': list(range(1,21,2)),
         'weights': ['uniform', 'distance'],
         'algorithm': ['auto', 'ball_tree', 'kd_tree', 'brute']
     }
@@ -54,4 +54,5 @@ def train_and_evaluate_KNN_tuned(X, y):
     scores = cross_val_score(best_knn_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 
+    print("Best hyperparameters for KNN:", grid_search.best_params_)
     return best_knn_regressor, mae
