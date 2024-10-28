@@ -12,10 +12,10 @@ from sklearn.model_selection import GridSearchCV
 def train_and_evaluate_RT_default(X, y):
 
     # Initialize the regression tree model
-    rt_regressor = DecisionTreeRegressor()
+    rt_regressor = DecisionTreeRegressor(random_state = 0)
 
     # Training the model using K-fold cross validation with K=5
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=5, shuffle=True, random_state = 0)
     scores = cross_val_score(rt_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
     
@@ -26,7 +26,7 @@ def train_and_evaluate_RT_default(X, y):
 
 def train_and_evaluate_RT_tuned(X, y):
     # Initialize the regression tree model
-    rt_regressor = DecisionTreeRegressor(random_state=42)
+    rt_regressor = DecisionTreeRegressor(random_state = 0)
 
     # Define the parameter grid
     param_grid = {
@@ -46,7 +46,7 @@ def train_and_evaluate_RT_tuned(X, y):
     best_rt_regressor = grid_search.best_estimator_
 
     # Calculate the mean absolute error using cross-validation
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=5, shuffle=True, random_state = 0)
     scores = cross_val_score(best_rt_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 

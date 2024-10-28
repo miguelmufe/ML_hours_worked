@@ -19,7 +19,7 @@ def train_and_evaluate_KNN_default(X, y):
     knn_regressor = KNeighborsRegressor()
 
     # Evaluate the model using K-fold cross validation with K=5
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=5, shuffle=True, random_state = 0)
     scores = cross_val_score(knn_regressor, X, y, cv = kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 
@@ -50,7 +50,7 @@ def train_and_evaluate_KNN_tuned(X, y):
     best_knn_regressor = grid_search.best_estimator_
 
     # Evaluate the best model using K-fold cross validation with K=5
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=5, shuffle=True, random_state = 0)
     scores = cross_val_score(best_knn_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 

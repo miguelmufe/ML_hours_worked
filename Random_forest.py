@@ -10,10 +10,10 @@ from sklearn.model_selection import GridSearchCV
 def train_and_evaluate_RF_default(X, y):
 
     # Initialize the Random Forest Classifier
-    rf_regressor = RandomForestClassifier()
+    rf_regressor = RandomForestClassifier(random_state = 0)
 
     # Evaluate the model using K-fold cross validation with K=5
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=5, shuffle=True, random_state = 0)
     scores = cross_val_score(rf_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 
@@ -24,7 +24,7 @@ def train_and_evaluate_RF_default(X, y):
 
 def train_and_evaluate_RF_tuned(X, y):
     # Initialize the Random Forest Classifier
-    rf_regressor = RandomForestClassifier()
+    rf_regressor = RandomForestClassifier(random_state = 0)
 
     # Define the parameter grid
     param_grid = {
@@ -47,7 +47,7 @@ def train_and_evaluate_RF_tuned(X, y):
     best_rf_regressor = grid_search.best_estimator_
 
     # Evaluate the best model using K-fold cross validation with K=5
-    kf = KFold(n_splits=5, shuffle=True, random_state=42)
+    kf = KFold(n_splits=5, shuffle=True, random_state = 0)
     scores = cross_val_score(best_rf_regressor, X, y, cv=kf, scoring='neg_mean_absolute_error')
     mae = -np.mean(scores)
 

@@ -18,8 +18,8 @@ import Random_forest as RF_regressor
 import Regression_trees as RT_classifier
 import Predictions as predictions
 
-tune = False
-
+tune = True
+write_file = False
 # ---------------------------------------------------------------Importing the dataset---------------------------------------------------------------
 dataset = pd.read_csv('health_insurance_train.csv')
 dataset = pd.DataFrame(dataset)
@@ -29,7 +29,7 @@ def default_hyperparameters(dataset, pipeline):
 
     # Preprocessing the dataset
     if pipeline == 1:
-        X, y= pp.Pipeline_1(dataset)
+        X, y = pp.Pipeline_1(dataset)
     elif pipeline == 2:
         X, y, scaler = pp.Pipeline_2(dataset)
 
@@ -109,6 +109,12 @@ if tune == False:
     y_pred_knn_def_2, y_pred_sgd_def_2, y_pred_rf_def_2, y_pred_rt_def_2 = predictions.make_predictions(knn_model_def_2, sgd_model_def_2, rf_model_def_2, rt_model_def_2, pipeline=2)
     #predictions.plot_predictions(y_pred_knn_def_1, y_pred_sgd_def_1, y_pred_rf_def_1, y_pred_rt_def_1)   #SGD crashes the program for pipeline 1
     predictions.plot_predictions(y_pred_knn_def_2, y_pred_sgd_def_2, y_pred_rf_def_2, y_pred_rt_def_2)
+    if write_file == True:
+        with open('autograder_submission.txt', 'w') as file:
+            file.write('11.9104\n')
+            for pred in y_pred_rf_def_2:
+                file.write(f'{pred}\n')
 
 if tune == True:
     y_pred_knn_tuned, y_pred_sgd_tuned, y_pred_rf_tuned, y_pred_rt_tuned = predictions.make_predictions(knn_model_tuned, sgd_model_tuned, rf_model_tuned, rt_model_tuned)
+    predictions.plot_predictions(y_pred_knn_tuned, y_pred_sgd_tuned, y_pred_rf_tuned, y_pred_rt_tuned)
