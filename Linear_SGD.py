@@ -1,6 +1,6 @@
 import numpy as np
 from sklearn.linear_model import SGDRegressor
-from sklearn.model_selection import GridSearchCV, KFold, train_test_split, cross_val_score
+from sklearn.model_selection import GridSearchCV, KFold,cross_val_score
 from sklearn.metrics import mean_absolute_error
 import matplotlib.pyplot as plt
 
@@ -32,7 +32,8 @@ def train_and_evaluate_SGD_tuned(X, y):
     sgd_regressor = SGDRegressor(random_state = 0)
 
     # Initialize GridSearchCV
-    grid_search = GridSearchCV(estimator=sgd_regressor, param_grid=param_grid, cv=5, scoring='neg_mean_absolute_error', n_jobs=-1)
+    grid_search = GridSearchCV(estimator=sgd_regressor, param_grid=param_grid, 
+                               cv=5, scoring='neg_mean_absolute_error', n_jobs=-1)
 
     # Fit GridSearchCV
     grid_search.fit(X, y)

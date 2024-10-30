@@ -1,18 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, accuracy_score
-from sklearn.metrics import mean_absolute_error
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.model_selection import cross_val_score
-from sklearn.utils import resample
-from sklearn.experimental import enable_iterative_imputer
-from sklearn.impute import IterativeImputer
-from sklearn.pipeline import FeatureUnion, Pipeline
-from sklearn.decomposition import PCA
 from sklearn.impute import SimpleImputer
 
 def Pipeline_1(dataset):

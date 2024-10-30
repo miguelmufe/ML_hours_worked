@@ -1,15 +1,4 @@
-import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix, accuracy_score
-from sklearn.metrics import mean_absolute_error
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.model_selection import cross_val_score
-from sklearn.utils import resample
-
 import Preprocessing as pp
 import Guess as gs
 import KNN as KNN_regressor
@@ -18,13 +7,14 @@ import Random_forest as RF_regressor
 import Regression_trees as RT_classifier
 import Predictions as predictions
 
-tune = True
-write_file = True
-# ---------------------------------------------------------------Importing the dataset---------------------------------------------------------------
+tune = False
+write_file = False
+
+# ---------------------Importing the dataset-----------------------------------------------
 dataset = pd.read_csv('health_insurance_train.csv')
 dataset = pd.DataFrame(dataset)
 
-# -----------------------------------------------Training and evaluating the models with default hyperparameters-----------------------------------------------
+# ------------Training and evaluating the models with default hyperparameters-----------------------
 def default_hyperparameters(dataset, pipeline):
 
     # Preprocessing the dataset
@@ -65,7 +55,7 @@ if tune == False:
     print('-------------------Pipeline 2 with default hyperparameters-------------------')
     knn_model_def_2, sgd_model_def_2, rf_model_def_2, rt_model_def_2, scaler= default_hyperparameters(dataset, 2)
 
-# ------------------------------------------------Training and evaluating the models with tuned hyperparameters-----------------------------------------------
+# ---------------Training and evaluating the models with tuned hyperparameters-----------------
 def tuned_hyperparameters(dataset, pipeline):
 
     # Preprocessing the dataset
@@ -97,11 +87,13 @@ def tuned_hyperparameters(dataset, pipeline):
 if tune == True:
     knn_model_tuned, sgd_model_tuned, rf_model_tuned, rt_model_tuned= tuned_hyperparameters(dataset, 2)
 
-# ------------------------------------------------Making predictions on autograder and plotting the results---------------------------------------------------------------
+# ------------------Making predictions on autograder and plotting the results-----------------------------
 if tune == False:
-    y_pred_knn_def_1, y_pred_sgd_def_1, y_pred_rf_def_1, y_pred_rt_def_1 = predictions.make_predictions(knn_model_def_1, sgd_model_def_1, rf_model_def_1, rt_model_def_1, pipeline=1)
-    y_pred_knn_def_2, y_pred_sgd_def_2, y_pred_rf_def_2, y_pred_rt_def_2 = predictions.make_predictions(knn_model_def_2, sgd_model_def_2, rf_model_def_2, rt_model_def_2, pipeline=2)
-    #predictions.plot_predictions(y_pred_knn_def_1, y_pred_sgd_def_1, y_pred_rf_def_1, y_pred_rt_def_1)   #SGD crashes the program for pipeline 1
+    y_pred_knn_def_1, y_pred_sgd_def_1, y_pred_rf_def_1, y_pred_rt_def_1 = predictions.make_predictions(
+        knn_model_def_1, sgd_model_def_1, rf_model_def_1, rt_model_def_1, pipeline=1)
+    y_pred_knn_def_2, y_pred_sgd_def_2, y_pred_rf_def_2, y_pred_rt_def_2 = predictions.make_predictions(
+        knn_model_def_2, sgd_model_def_2, rf_model_def_2, rt_model_def_2, pipeline=2)
+    
     predictions.plot_predictions(y_pred_knn_def_2, y_pred_sgd_def_2, y_pred_rf_def_2, y_pred_rt_def_2)
 
     if write_file == True:
@@ -111,7 +103,8 @@ if tune == False:
                 file.write(f'{pred}\n')
 
 if tune == True:
-    y_pred_knn_tuned, y_pred_sgd_tuned, y_pred_rf_tuned, y_pred_rt_tuned = predictions.make_predictions(knn_model_tuned, sgd_model_tuned, rf_model_tuned, rt_model_tuned)
+    y_pred_knn_tuned, y_pred_sgd_tuned, y_pred_rf_tuned, y_pred_rt_tuned = predictions.make_predictions(
+        knn_model_tuned, sgd_model_tuned, rf_model_tuned, rt_model_tuned)
     predictions.plot_predictions(y_pred_knn_tuned, y_pred_sgd_tuned, y_pred_rf_tuned, y_pred_rt_tuned)
 
     if write_file == True:

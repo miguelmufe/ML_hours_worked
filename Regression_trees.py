@@ -1,12 +1,8 @@
-import pandas as pd
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
-from sklearn.metrics import mean_absolute_error
 import numpy as np
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
-from sklearn.linear_model import SGDRegressor
 from sklearn.model_selection import GridSearchCV
+from sklearn.tree import DecisionTreeRegressor
 
 
 def train_and_evaluate_RT_default(X, y):

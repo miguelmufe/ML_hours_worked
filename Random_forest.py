@@ -1,6 +1,4 @@
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import mean_absolute_error
-from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import KFold
 import numpy as np
